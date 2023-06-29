@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Social Network</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Social Network</h1>
+    <!-- Navigation, user authentication, etc. -->
+  </header>
+
+  <main>
+    <section id="post-form">
+      <!-- Post form to allow users to create new posts -->
+      <textarea id="post-content" placeholder="What's on your mind?"></textarea>
+      <button onclick="createPost()">Post</button>
+    </section>
+
+    <section id="post-list">
+      <!-- Display posts from users -->
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+// Array to store posts
+let posts = [];
+
+// Function to create a new post
+const createPost = () => {
+  const content = document.getElementById('post-content').value;
+  const post = {
+    id: Date.now(),
+    content: content,
+    timestamp: new Date().toLocaleString(),
+  };
+  posts.push(post);
+  displayPosts();
+  clearForm();
+};
+
+// Function to display posts
+const displayPosts = () => {
+  const postList = document.getElementById('post-list');
+  postList.innerHTML = '';
+  posts.forEach(post => {
+    const postElement = document.createElement('div');
+    postElement.innerHTML = `
+      <div class="post">
+        <p>${post.content}</p>
+        <span class="timestamp">${post.timestamp}</span>
+      </div>
+    `;
+    postList.appendChild(postElement);
+  });
+};
+
+// Function to clear the post form
+const clearForm = () => {
+  document.getElementById('post-content').value = '';
+};
+
+// Initial display of posts
+displayPosts();
+
